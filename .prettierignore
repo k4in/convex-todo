@@ -9,3 +9,8 @@ package-lock.json
 routeTree.gen.ts
 *.types.ts
 AGENTS.md
+
+.claude/skills/
+skills-lock.json
+
+convex/_generated/
