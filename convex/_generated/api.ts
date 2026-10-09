@@ -8,7 +8,9 @@
  * @module
  */
 
+import type * as lib_userKey from "../lib/userKey.js";
 import type * as todos from "../todos.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -18,7 +20,9 @@ import type {
 import { anyApi, componentsGeneric } from "convex/server";
 
 const fullApi: ApiFromModules<{
+  "lib/userKey": typeof lib_userKey;
   todos: typeof todos;
+  users: typeof users;
 }> = anyApi as any;
 
 /**

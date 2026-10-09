@@ -9,7 +9,11 @@ import { createTodoSchema } from "@/schemas/todo.ts";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/shadcn/field.tsx";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/shadcn/input-group.tsx";
 
-export function TodoForm() {
+type TodoFormProps = {
+  userKey: string;
+};
+
+export function TodoForm({ userKey }: TodoFormProps) {
   const createTodo = useMutation(api.todos.create);
 
   const form = useForm({
@@ -18,7 +22,7 @@ export function TodoForm() {
     validators: { onDynamic: createTodoSchema },
     onSubmit: async ({ value, formApi }) => {
       try {
-        await createTodo({ text: value.text });
+        await createTodo({ key: userKey, text: value.text });
         formApi.reset();
       } catch (error) {
         showErrorToast(error);

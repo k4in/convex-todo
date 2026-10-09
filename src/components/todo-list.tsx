@@ -8,8 +8,12 @@ import { ItemGroup } from "@/components/shadcn/item.tsx";
 import { Skeleton } from "@/components/shadcn/skeleton.tsx";
 import { TodoItem } from "@/components/todo-item.tsx";
 
-export function TodoList() {
-  const todos = useQuery(api.todos.list);
+type TodoListProps = {
+  userKey: string;
+};
+
+export function TodoList({ userKey }: TodoListProps) {
+  const todos = useQuery(api.todos.list, { key: userKey });
 
   if (todos === undefined) {
     return (
@@ -38,7 +42,7 @@ export function TodoList() {
   return (
     <ItemGroup>
       {todos.map((todo) => (
-        <TodoItem key={todo._id} todo={todo} />
+        <TodoItem key={todo._id} userKey={userKey} todo={todo} />
       ))}
     </ItemGroup>
   );

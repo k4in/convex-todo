@@ -11,19 +11,20 @@ import { Checkbox } from "@/components/shadcn/checkbox.tsx";
 import { Item, ItemActions, ItemContent, ItemMedia, ItemTitle } from "@/components/shadcn/item.tsx";
 
 type TodoItemProps = {
+  userKey: string;
   todo: Doc<"todos">;
 };
 
-export function TodoItem({ todo }: TodoItemProps) {
+export function TodoItem({ userKey, todo }: TodoItemProps) {
   const setCompleted = useMutation(api.todos.setCompleted);
   const removeTodo = useMutation(api.todos.remove);
 
   function handleCompletedChange(completed: boolean) {
-    setCompleted({ id: todo._id, completed }).catch(showErrorToast);
+    setCompleted({ key: userKey, id: todo._id, completed }).catch(showErrorToast);
   }
 
   function handleRemove() {
-    removeTodo({ id: todo._id }).catch(showErrorToast);
+    removeTodo({ key: userKey, id: todo._id }).catch(showErrorToast);
   }
 
   return (
